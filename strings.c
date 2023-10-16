@@ -1,12 +1,19 @@
 #include "main.h"
+/**
+ * str_buff - convert int to str
+ * @buf: buffer to be updated
+ * @no: number to be converted
+ * @len: length of the string
+ * Return: returns the updated buffer
+*/
 char *str_buff(char *buf, int no, int len)
 {
 	int i = 0, ble = _strlen(buf), count = 0;
-	count = (ble + len - 1);
 
+	count = (ble + len - 1);
 	if (sizeof(no) != 4)
 	{
-		printf("FAILED IN STR_BUFF NOT NO.\n");
+		
 		exit(2);
 	}
 
@@ -27,6 +34,11 @@ char *str_buff(char *buf, int no, int len)
 	return (buf);
 
 }
+/**
+ * int_len - finds the length of an in
+ * @n: integer to find length for
+ * Return: returns ength of int
+*/
 int int_len(int n)
 {
 	int i = 0;

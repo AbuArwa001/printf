@@ -97,7 +97,7 @@ int _printf(const char *format, ...)
 	/*int trcker = 0;*/
 	va_list args;
 
-	if (buffer == NULL)
+	if (buffer == NULL || format == NULL)
 	{
 		return (-1);
 	}

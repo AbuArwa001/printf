@@ -57,6 +57,28 @@ char *_memcpy(char *dest, char *src, unsigned int n);
  */
 
 char *_memset(char *s, char b, unsigned int n);
+/**
+ * _realloc - reallocate a memory block using malloc
+ * @ptr: pointer of memory to be reallocated
+ * @old_size: ptrs old memory size
+ * @new_size: ptrs new size
+ * Return: returns a pointer to memory f the new allocated memory
+ */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+/**
+ * chk_buf - chcks if buff or fmt string is null
+ * @format: string to be checked
+ * @buffer: buffer to be freed if str is null
+ * Return: return 1 if not null and -1 if null
+*/
+int chk_buf(char *buffer, const char *format);
+/**
+ * chk_str - chcks if string is null
+ * @str: string to be checked
+ * @buffer: buffer to be freed if str is null
+ * Return: return 1 if not null and -1 if null
+*/
+int chk_str(char *str, char *buffer);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);

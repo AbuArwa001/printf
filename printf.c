@@ -109,7 +109,7 @@ int _printf(const char *format, ...)
 			{
 				str = convert(buffer, ch, args);
 				if (chk_str(str, buffer) == -1)
-					return (-1);
+					exit(2);
 				if (buffer != str)
 					buffer = str;
 				i += 2;

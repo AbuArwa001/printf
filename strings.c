@@ -8,8 +8,10 @@
 */
 char *str_buff(char *buf, int n, int len)
 {
-	int i = 0, ble = _strlen(buf), count = 0, no = n, new_len = 0;
+	int i = 0, ble = _strlen(buf), count = 0, no = n;
 
+	if (sizeof(no) != 4)
+		exit(2);
 	if (no < 0)
 	{
 		no = -n;
@@ -23,19 +25,6 @@ char *str_buff(char *buf, int n, int len)
 		count = (ble + len - 1);
 		i = ble;
 	}
-	new_len = ((ble + len) * 2) + 1;
-	if (count >= ble)
-	{
-		buf  = _realloc(buf, sizeof(char) *  ble, sizeof(char) * new_len);
-		if (buf == NULL)
-		{
-			free(buf);
-			return (NULL);
-		}
-		_memset((buf + ble), 0, count);
-		if (n < 0)
-			buf[ble] = '-';
-	}
 	for (; count >= i ; count--)
 	{
 		if (no < 10)
@@ -46,7 +35,6 @@ char *str_buff(char *buf, int n, int len)
 			no /= 10;
 		}
 	}
-	buf[len + ble] = '\0';
 	return (buf);
 }
 /**

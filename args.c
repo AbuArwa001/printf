@@ -27,16 +27,5 @@ char *c_tostr(char *buf, char *c)
 */
 char *add_str(char *buf, char *str)
 {
-	if ((_strlen(str) + _strlen(buf) - 1)  >= _strlen(buf))
-	{
-		int new_len = 0;
-		int old_len = 0;
-
-		new_len = ((_strlen(str) + _strlen(buf)));
-		old_len = _strlen(buf);
-		buf  = _realloc(buf, old_len, new_len * 2);
-		_memset((buf + old_len), 0, (new_len + old_len));
-	}
-
 	return (_strcat(buf, str));
 }

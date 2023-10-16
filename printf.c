@@ -75,7 +75,7 @@ char *convert(char *buf, char c, va_list a)
 			break;
 
 		case 's':
-			add_str(buf, va_arg(a, char *));
+			str = add_str(buf, va_arg(a, char *));
 			break;
 
 		default:
@@ -84,6 +84,7 @@ char *convert(char *buf, char c, va_list a)
 
 	return (str);
 }
+
 /**
  * _printf - perfrms printing on stdout
  *  @format: format string to be used
@@ -93,15 +94,11 @@ char *convert(char *buf, char c, va_list a)
 int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0;
-	char *buffer = malloc(sizeof(char) * 1024), ch = ' ';
-	/*int trcker = 0;*/
+	char *buffer = malloc(sizeof(char) * 1024), *str = NULL, ch = ' ';
 	va_list args;
 
-	if (buffer == NULL || format == NULL)
-	{
-		free(buffer);
+	if (chk_buf(buffer, format) == -1)
 		return (-1);
-	}
 	_memset(buffer, 0, 1024);
 	va_start(args, format);
 	while (format && format[i])
@@ -109,11 +106,13 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			ch = format[i + 1];
-
 			if (char_checck(ch))
 			{
-				convert(buffer, ch, args);
-				/*_strcat(buffer, str);*/
+				str = convert(buffer, ch, args);
+				if (chk_str(str, buffer) == -1)
+					return (-1);
+				if (buffer != str)
+					buffer = str;
 				i += 2;
 			}
 			else

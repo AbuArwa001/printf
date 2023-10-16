@@ -59,7 +59,7 @@ Your code will be compiled this way:
 - Our main files will include your main header file (main.h): #include main.h
 - You might want to look at the gcc flag -Wno-format when testing with your ```_printf``` and the standard printf. Example of test file that you could use:
 ~~~
-alex@ubuntu:~/c/printf$ cat main.c 
+alex@ubuntu:~/c/printf$ cat main.c
 #include <limits.h>
 #include <stdio.h>
 #include "main.h"

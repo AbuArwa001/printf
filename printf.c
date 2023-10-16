@@ -94,11 +94,12 @@ char *convert(char *buf, char c, va_list a)
 int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0;
-	char *buffer = _calloc(1024, sizeof(char)), *str = NULL, ch = ' ';
+	char *buffer = malloc(sizeof(char) * 1024), *str = NULL, ch = ' ';
 	va_list args;
 
 	if (chk_buf(buffer, format) == -1)
 		return (-1);
+	_memset(buffer, 0, 1024);
 	va_start(args, format);
 	while (format && format[i])
 	{

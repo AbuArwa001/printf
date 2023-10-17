@@ -81,7 +81,7 @@ int chk_buf(char *buffer, const char *format);
 int chk_str(char *str, char *buffer);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
-char *c_tostr(char *buf, char *c);
+char *c_tostr(char *buf, char c);
 char *str_buff(char *buf, int no, int len);
 int _printf(const char *format, ...);
 char *add_str(char *buf, char *str);

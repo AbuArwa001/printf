@@ -6,9 +6,16 @@
  *
  * Return: returns a string or null if c not a string;
 */
-char *c_tostr(char *buf, char c)
+char *c_tostr(char *buf, char *c)
 {
-		return (_strncat(buf, &c, 1));
+	if (c[1] == '\0' && c[0] != '\0')
+	{
+		return (_strncat(buf, c, 1));
+	}
+	else
+	{
+		return (NULL);
+	}
 }
 /**
  * add_str - adds string to buffer

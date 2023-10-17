@@ -19,7 +19,7 @@ char *c_tostr(char *buf, char *c)
 */
 char *add_str(char *buf, char *str)
 {
-	if (str == NULL && buf == NULL)
+	if (str == NULL)
 	{
 		free(buf);
 		return (NULL);

@@ -28,3 +28,48 @@ int chk_buf(char *buffer, const char *format)
 	}
 	return (1);
 }
+
+/**
+ * char_checck - checks if chrarcter is available
+ * @c: character to be checked
+ * Return: returns 0 if not fount and 1 if foud
+*/
+int char_checck(char c)
+{
+	char *arr = "cdixXuos%%";
+	int i = 0;
+
+	for (i = 0; i < _strlen(arr); i++)
+	{
+		if (c == arr[i])
+		{
+			return (1);
+		}
+	}
+
+	return (0);
+
+
+}
+/**
+ * custom_checck - checks if chrarcter is available
+ * @c: character to be checked
+ * Return: returns 0 if not fount and 1 if foud
+*/
+int custom_checck(char c)
+{
+	char *arr = "cdixXuos%%";
+	int i = 0;
+
+	for (i = 0; i < _strlen(arr); i++)
+	{
+		if (c == arr[i])
+		{
+			return (1);
+		}
+	}
+
+	return (0);
+
+
+}

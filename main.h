@@ -78,6 +78,18 @@ int chk_buf(char *buffer, const char *format);
  * Return: return 1 if not null and -1 if null
 */
 int chk_str(char *buffer);
+/**
+ * char_checck - checks if chrarcter is available
+ * @c: character to be checked
+ * Return: returns 0 if not fount and 1 if foud
+*/
+int char_checck(char c);
+/**
+ * custom_checck - checks if chrarcter is available
+ * @c: character to be checked
+ * Return: returns 0 if not fount and 1 if foud
+*/
+int custom_checck(char c);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);

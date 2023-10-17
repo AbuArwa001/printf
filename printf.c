@@ -32,6 +32,11 @@ int print_buff(char *buff, int len)
 {
 	int writen = 0;
 
+	if (buff == NULL)
+	{
+		return (-1);
+	}
+
 	writen = write(1, buff, len);
 
 	return (writen);

@@ -8,12 +8,13 @@
 */
 char *c_tostr(char *buf, char *c)
 {
-	if (c[1] == '\0')
+	if (c != NULL && buf != NULL)
 	{
 		return (_strncat(buf, c, 1));
 	}
 	else
 	{
+		free(buf);
 		return (NULL);
 	}
 
@@ -27,5 +28,11 @@ char *c_tostr(char *buf, char *c)
 */
 char *add_str(char *buf, char *str)
 {
+	if (str == NULL && buf == NULL)
+	{
+		free(buf);
+		return (NULL);
+	}
+
 	return (_strcat(buf, str));
 }

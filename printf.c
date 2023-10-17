@@ -109,15 +109,13 @@ int _printf(const char *format, ...)
 			{
 				str = convert(buffer, ch, args);
 				if (chk_str(str, buffer) == -1)
-					exit(2);
-				if (buffer != str)
-					buffer = str;
+					return (-1);
 				i += 2;
 			}
 			else
 			{
 				free(buffer);
-				exit(1);
+				return (-1);
 			}
 		}
 		else

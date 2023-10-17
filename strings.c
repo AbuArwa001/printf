@@ -8,10 +8,15 @@
 */
 char *str_buff(char *buf, int n, int len)
 {
-	int i = 0, ble = _strlen(buf), count = 0, no = n;
+	int i = 0, ble = 0, count = 0, no = n;
 
 	if (sizeof(no) != 4)
-		exit(2);
+		return (NULL);
+	if (buf == NULL)
+	{
+		return (NULL);
+	}
+	ble = _strlen(buf);
 	if (no < 0)
 	{
 		no = -n;
@@ -45,6 +50,11 @@ char *str_buff(char *buf, int n, int len)
 int int_len(int n)
 {
 	int i = 0;
+
+	if (n == 0)
+	{
+		return (1);
+	}
 
 	for (i = 0; n != 0; i++)
 	{

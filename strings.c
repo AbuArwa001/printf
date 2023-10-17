@@ -12,7 +12,7 @@ char *str_buff(char *buf, int n, int len)
 
 	if (sizeof(no) != 4)
 		return (NULL);
-	if (len == NULL)
+	if (n == NULL)
 	{
 		return (NULL);
 	}

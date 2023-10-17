@@ -8,16 +8,7 @@
 */
 char *c_tostr(char *buf, char *c)
 {
-	if (c != NULL && buf != NULL)
-	{
 		return (_strncat(buf, c, 1));
-	}
-	else
-	{
-		free(buf);
-		return (NULL);
-	}
-
 }
 /**
  * add_str - adds string to buffer

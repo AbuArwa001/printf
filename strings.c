@@ -9,10 +9,10 @@
 char *str_buff(char *buf, int n, int len)
 {
 	int i = 0, ble = 0, count = 0, no = n;
-
+	
 	if (sizeof(no) != 4)
 		return (NULL);
-	if (n == NULL)
+	if (buf == NULL || n == NULL)
 	{
 		return (NULL);
 	}

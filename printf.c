@@ -70,6 +70,7 @@ char *convert(char *buf, char c, va_list a)
 			va = va_arg(a, int);
 			intlen = int_len(va);
 			str = str_buff(buf, va, intlen);
+			str = (str != NULL ? str : NULL);
 			break;
 
 		case '%':
@@ -78,7 +79,8 @@ char *convert(char *buf, char c, va_list a)
 			break;
 
 		case 's':
-			str = add_str(buf, va_arg(a, char *));
+			str = va_arg(a, char *);
+			str = add_str(buf, (str != NULL) ? str : NULL);
 			break;
 
 		default:

@@ -115,6 +115,15 @@ char *convert(char *buf, char c, va_list a)
 
 	return (str);
 }
+/**
+ * fmt - validifies format string to a specified specifier
+ *  @format: buffer to be updated
+ *  @buffer: character to be checked
+ *  @c: list to travers and keep track of
+ *  @args: va list
+ *  @i: character index
+ * Return: returns updated buffer;
+*/
 int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 {
 	char ch = c;
@@ -168,7 +177,7 @@ int _printf(const char *format, ...)
 	while (format && format[i])
 	{
 		if (fmt(format, buffer, format[i], args, &i))
-			continue;		
+			continue;
 		else
 			return (-1);
 	}

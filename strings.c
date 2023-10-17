@@ -64,3 +64,33 @@ int int_len(int n)
 	return (i);
 
 }
+/**
+ * rev_str - prints string in reverse
+ * @buf: wherr the str is stored
+ * @s: string to be reversed
+ * Return: returns the rversed string for buffer
+ */
+
+char *rev_str(char *buf, char *s)
+{
+
+	int len = 0;
+
+	if (s == NULL)
+	{
+		return (NULL);
+	}
+	len = _strlen(s) - 1;
+	if (_strlen(s) == 0)
+	{
+		*buf++ = '\n';
+		return (buf);
+	}
+	while (len != 0)
+	{
+		*buf++ = *(s + len);
+		len--;
+	}
+	*buf++ = (*(s + len));
+return (buf);
+}

@@ -60,7 +60,7 @@ int char_checck(char c)
 */
 int custom_checck(char c)
 {
-	char *arr = "bxXuoS";
+	char *arr = "bxXuoSrR";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)

@@ -90,6 +90,14 @@ int char_checck(char c);
  * Return: returns 0 if not fount and 1 if foud
 */
 int custom_checck(char c);
+/**
+ * rev_str- prints string in reverse
+ * @buf: wherr the str is stored
+ * @s: string to be reversed
+ * Return: returns the rversed string for buffe
+ */
+
+char *rev_str(char *buf, char *s);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);

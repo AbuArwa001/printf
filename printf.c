@@ -38,7 +38,14 @@ char *custom_convert(char *buf, char c, va_list a)
 			b = va_arg(a, int);
 			str = toBinary(buf, b);
 			break;
-
+		case 'S':
+			str = va_arg(a, char *);
+			str = add_str(buf, (str != NULL) ? str : NULL);
+			break;
+		case 'r':
+			str = va_arg(a, char *);
+			str = rev_str(buf, (str != NULL) ? str : NULL);
+			break;
 		default:
 			break;
 	}
@@ -54,15 +61,15 @@ char *custom_convert(char *buf, char c, va_list a)
 */
 char *convert(char *buf, char c, va_list a)
 {
-	char *str = NULL, ch[2];
+	char *str = NULL, ch = '\0';
 	int intlen = 0, va = 0;
 
 	switch (c)
 	{
 		case 'c':
-			ch[0] = va_arg(a, int);
-			ch[1] = '\0';
-			str = _strcat(buf, (ch != NULL) ? ch : NULL);
+			ch = va_arg(a, int);
+			buf[_strlen(buf)] = ch;
+			str = buf;
 			break;
 
 		case 'd':
@@ -79,9 +86,8 @@ char *convert(char *buf, char c, va_list a)
 			break;
 
 		case '%':
-			ch[0] = c;
-			ch[1] = '\0';
-			str = _strcat(buf, (ch != NULL) ? ch : NULL);
+			buf[_strlen(buf)] = c;
+			str = buf;
 			break;
 
 		case 's':

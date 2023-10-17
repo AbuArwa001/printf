@@ -74,11 +74,10 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int chk_buf(char *buffer, const char *format);
 /**
  * chk_str - chcks if string is null
- * @str: string to be checked
  * @buffer: buffer to be freed if str is null
  * Return: return 1 if not null and -1 if null
 */
-int chk_str(char *str, char *buffer);
+int chk_str(char *buffer);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char c);

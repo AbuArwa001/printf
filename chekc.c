@@ -1,13 +1,12 @@
 #include "main.h"
 /**
  * chk_str - chcks if string is null
- * @str: string to be checked
  * @buffer: buffer to be freed if str is null
  * Return: return 1 if not null and -1 if null
 */
-int chk_str(char *str, char *buffer)
+int chk_str(char *buffer)
 {
-	if (str == NULL)
+	if (buffer == NULL)
 	{
 		free(buffer);
 		return (-1);

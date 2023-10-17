@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include "main.h"
+
 /**
  * char_checck - checks if chrarcter is available
  * @c: character to be checked
@@ -99,7 +100,7 @@ char *convert(char *buf, char c, va_list a)
 int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0;
-	char *buffer = _calloc(1024, sizeof(char)), *str = NULL, ch = ' ';
+	char *buffer = _calloc(1024, sizeof(char)), ch = ' ';
 	va_list args;
 
 	if (chk_buf(buffer, format) == -1)
@@ -112,8 +113,8 @@ int _printf(const char *format, ...)
 			ch = format[i + 1];
 			if (char_checck(ch))
 			{
-				str = convert(buffer, ch, args);
-				if (chk_str(str, buffer) == -1)
+				convert(buffer, ch, args);
+				if (chk_str(buffer) == -1)
 					return (-1);
 				i += 2;
 			}

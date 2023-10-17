@@ -45,15 +45,14 @@ int print_buff(char *buff, int len)
 */
 char *convert(char *buf, char c, va_list a)
 {
-	char *str = NULL, ch[2];
+	char *str = NULL, ch = '\0';
 	int intlen = 0, va = 0;
 
 	switch (c)
 	{
 		case 'c':
-			ch[0] = va_arg(a, int);
-			ch[1] = '\0';
-			str = c_tostr(buf, ch);
+			ch = va_arg(a, int);
+			str = _strncat(buf, &ch, 1);
 			break;
 
 		case 'd':
@@ -69,9 +68,8 @@ char *convert(char *buf, char c, va_list a)
 			break;
 
 		case '%':
-			ch[0] = '%';
-			ch[1] = '\0';
-			str = c_tostr(buf, ch);
+			ch = '%';
+			str = _strncat(buf, &ch, 1);
 			break;
 
 		case 's':

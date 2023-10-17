@@ -6,9 +6,9 @@
  *
  * Return: returns a string or null if c not a string;
 */
-char *c_tostr(char *buf, char *c)
+char *c_tostr(char *buf, char c)
 {
-		return (_strncat(buf, c, 1));
+		return (_strncat(buf, &c, 1));
 }
 /**
  * add_str - adds string to buffer

@@ -13,7 +13,6 @@ int print_buff(char *buff, int len)
 
 	if (buff == NULL)
 	{
-		free(buff);
 		return (-1);
 	}
 
@@ -30,35 +29,16 @@ int print_buff(char *buff, int len)
 */
 char *custom_convert(char *buf, char c, va_list a)
 {
-	char *str = NULL, ch[2];
-	int intlen = 0, va = 0;
+	char *str = NULL;
+	int b = 0;
 
 	switch (c)
 	{
 		case 'b':
-			ch[0] = va_arg(a, int);
-			ch[1] = '\0';
-			str = _strcat(buf, (ch != NULL) ? ch : NULL);
+			b = va_arg(a, int);
+			str = toBinary(buf, b);
 			break;
 
-		case 'S':
-			va = va_arg(a, int);
-			intlen = int_len(va);
-			str = str_buff(buf, va, intlen);
-			break;
-
-		case 'R':
-			va = va_arg(a, int);
-			intlen = int_len(va);
-			str = str_buff(buf, va, intlen);
-			str = (str != NULL ? str : NULL);
-			break;
-
-		case 'r':
-			ch[0] = c;
-			ch[1] = '\0';
-			str = _strcat(buf, (ch != NULL) ? ch : NULL);
-			break;
 		default:
 			break;
 	}
@@ -128,21 +108,27 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 {
 	char ch = c;
 
-		if (format[*i] == '%')
+	if (format[*i] == '%')
+	{
+		ch = format[*i + 1];
+
+		if (char_checck(ch))
 		{
-			ch = format[*i + 1];
-			if (char_checck(ch))
-			{
-				convert(buffer, ch, args);
-				if (chk_str(buffer) == -1)
-					return (-1);
-				*i += 2;
-			}
-			else if (custom_checck(ch))
+			convert(buffer, ch, args);
+
+			if (chk_str(buffer) == -1)
+				return (-1);
+
+			*i += 2;
+		}
+		else
+			if (custom_checck(ch))
 			{
 				custom_convert(buffer, ch, args);
+
 				if (chk_str(buffer) == -1)
 					return (-1);
+
 				*i += 2;
 			}
 			else
@@ -150,14 +136,15 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 				free(buffer);
 				return (-1);
 			}
-		}
-		else
-		{
-			ch = format[*i];
-			_strncat(buffer, &ch, 1);
-			*i += 1;
-		}
-		return (1);
+	}
+	else
+	{
+		ch = format[*i];
+		_strncat(buffer, &ch, 1);
+		*i += 1;
+	}
+
+	return (1);
 }
 /**
  * _printf - perfrms printing on stdout
@@ -167,20 +154,25 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 */
 int _printf(const char *format, ...)
 {
-	int pr = 0, i = 0;
+	int pr = 0, i = 0, tracker = 0;
 	char *buffer = _calloc(1024, sizeof(char));
 	va_list args;
 
 	if (chk_buf(buffer, format) == -1)
 		return (-1);
+
 	va_start(args, format);
+
 	while (format && format[i])
 	{
-		if (fmt(format, buffer, format[i], args, &i))
+		tracker = fmt(format, buffer, format[i], args, &i);
+
+		if (tracker != -1)
 			continue;
 		else
 			return (-1);
 	}
+
 	pr = print_buff(buffer, _strlen(buffer));
 	va_end(args);
 	free(buffer);

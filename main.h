@@ -96,4 +96,5 @@ char *c_tostr(char *buf, char *c);
 char *str_buff(char *buf, int no, int len);
 int _printf(const char *format, ...);
 char *add_str(char *buf, char *str);
+char *toBinary(char *buf, int b);
 #endif

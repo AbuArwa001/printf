@@ -11,6 +11,7 @@ int chk_str(char *buffer)
 		free(buffer);
 		return (-1);
 	}
+
 	return (1);
 }
 /**
@@ -26,6 +27,7 @@ int chk_buf(char *buffer, const char *format)
 		free(buffer);
 		return (-1);
 	}
+
 	return (1);
 }
 
@@ -58,7 +60,7 @@ int char_checck(char c)
 */
 int custom_checck(char c)
 {
-	char *arr = "cdixXuos%%";
+	char *arr = "bxXuoS";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)

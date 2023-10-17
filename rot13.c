@@ -18,6 +18,13 @@ char *rot13(char *buf, char *str)
 	initCaps(rotMap);
 	initLow(lowRot);
 
+	if (str == NULL)
+	{
+		free(buf);
+		buf = NULL;
+
+		return (NULL);
+	}
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90))

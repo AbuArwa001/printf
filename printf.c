@@ -112,7 +112,7 @@ char *convert(char *buf, char c, va_list a)
 */
 int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 {
-	char ch = c;
+	char ch = c, *str = NULL;
 
 	if (format[*i] == '%')
 	{
@@ -130,9 +130,9 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 		else
 			if (custom_checck(ch))
 			{
-				custom_convert(buffer, ch, args);
+				str = custom_convert(buffer, ch, args);
 
-				if (chk_str(buffer) == -1)
+				if (chk_str(str) == -1)
 					return (-1);
 
 				*i += 2;
@@ -176,7 +176,10 @@ int _printf(const char *format, ...)
 		if (tracker != -1)
 			continue;
 		else
-			return (-1);
+			{
+				va_end(args);
+				return (-1);
+			}
 	}
 
 	pr = print_buff(buffer, _strlen(buffer));

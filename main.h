@@ -98,6 +98,13 @@ int custom_checck(char c);
  */
 
 char *rev_str(char *buf, char *s);
+/**
+ * rot13 - cyphers string with rot 13 cyphers
+ * @str: string to be encrypted
+ * @buf: buffer to save rot
+ * Return: returs encrypted string
+ */
+char *rot13(char *buf, char *str);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);

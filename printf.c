@@ -38,9 +38,9 @@ char *custom_convert(char *buf, char c, va_list a)
 			b = va_arg(a, int);
 			str = toBinary(buf, b);
 			break;
-		case 'S':
+		case 'R':
 			str = va_arg(a, char *);
-			str = add_str(buf, (str != NULL) ? str : NULL);
+			str = rot13(buf, str);
 			break;
 		case 'r':
 			str = va_arg(a, char *);

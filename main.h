@@ -113,6 +113,20 @@ char *rot13(char *buf, char *str);
  * Return: returns updated buffer;
 */
 char *convert_hex(char *buf, char c, va_list a);
+/**
+ *  hex_convert - convert number to hex
+ *  @buf: buffer to store octal
+ *  @n: number to convert
+ *  Return: coverted num
+*/
+char *hex_conv(char *buf, unsigned int n);
+/**
+ *  smHex_conv - convert number to hex
+ *  @buf: buffer to store octal
+ *  @n: number to convert
+ *  Return: coverted num
+*/
+char *smHex_conv(char *buf, unsigned int n);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

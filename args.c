@@ -8,7 +8,7 @@
 */
 char *c_tostr(char *buf, char *c)
 {
-	if (c[1] == '\0' && c[0] != '\0')
+	if (c[0] != '\0')
 	{
 		return (_strncat(buf, c, 1));
 	}
@@ -28,7 +28,7 @@ char *add_str(char *buf, char *str)
 {
 	if (str == NULL)
 	{
-		free(buf);
+		_strcat(buf, "(null)");
 		return (NULL);
 	}
 

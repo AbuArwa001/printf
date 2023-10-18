@@ -96,7 +96,6 @@ char *convert(char *buf, char c, va_list a)
 			break;
 		case 'p':
 			ptr = va_arg(a, char **);
-			printf("%s\n", (char *)*ptr);
 			str = add_str(buf, (*ptr != NULL) ? *ptr : NULL);
 			break;
 		default:

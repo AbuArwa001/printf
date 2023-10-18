@@ -1,4 +1,6 @@
 #include "main.h"
+#include <stdlib.h>
+#include <limits.h>
 /**
  * str_buff - convert int to str
  * @buf: buffer to be updated
@@ -8,18 +10,23 @@
 */
 char *str_buff(char *buf, int n, int len)
 {
-	int i = 0, ble = 0, count = 0, no = n;
+	int i = 0, ble = 0, count = 0;
+	unsigned int no = 0;
 
 	if (sizeof(no) != 4)
 		return (NULL);
 	if (buf == NULL)
-	{
 		return (NULL);
-	}
 	ble = _strlen(buf);
-	if (no < 0)
+	if (n < 0)
 	{
-		no = -n;
+		if (n <= INT_MIN)
+			no = n;
+		else
+		{
+			n = -n;
+			no = n;
+		}
 		len += 1;
 		count = (ble + len - 1);
 		buf[ble] = '-';
@@ -27,6 +34,7 @@ char *str_buff(char *buf, int n, int len)
 	}
 	else
 	{
+		no = n;
 		count = (ble + len - 1);
 		i = ble;
 	}

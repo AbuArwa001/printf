@@ -63,7 +63,7 @@ char *custom_convert(char *buf, char c, va_list a)
 */
 char *convert(char *buf, char c, va_list a)
 {
-	char *str = NULL, ch = '\0';
+	char *str = NULL, ch = '\0', **ptr = NULL;
 	int intlen = 0, va = 0;
 
 	switch (c)
@@ -86,21 +86,22 @@ char *convert(char *buf, char c, va_list a)
 			str = str_buff(buf, va, intlen);
 			str = (str != NULL ? str : NULL);
 			break;
-
 		case '%':
 			buf[_strlen(buf)] = c;
 			str = buf;
 			break;
-
 		case 's':
 			str = va_arg(a, char *);
 			str = add_str(buf, (str != NULL) ? str : NULL);
 			break;
-
+		case 'p':
+			ptr = va_arg(a, char **);
+			printf("%s\n", (char *)*ptr);
+			str = add_str(buf, (*ptr != NULL) ? *ptr : NULL);
+			break;
 		default:
 			break;
 	}
-
 	return (str);
 }
 /**

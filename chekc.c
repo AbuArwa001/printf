@@ -38,7 +38,7 @@ int chk_buf(char *buffer, const char *format)
 */
 int char_checck(char c)
 {
-	char *arr = "csdi%";
+	char *arr = "csdip%";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)

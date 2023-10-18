@@ -132,15 +132,24 @@ char *smHex_conv(char *buf, unsigned int n);
  * @buf: buffer to be updated
  * @n: number to be converted
  * @len: length of the string
+ * @li: check for signage
  * Return: returns the updated buffer
 */
-char *str_buff_ui(char *buf, unsigned int n, int len);
+char *str_buff_ui(char *buf, unsigned int n, int len, long int li);
 /**
  * int_len_ui - finds the length of an in
  * @n: integer to find length for
  * Return: returns ength of int
 */
 int int_len_ui(unsigned int n);
+/**
+* _abs - computes absolute value of an integer
+* @in: the integer to be converted
+*
+* Return: it returns an absolute value
+*/
+
+int _abs(int in);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

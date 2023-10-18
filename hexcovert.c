@@ -10,6 +10,7 @@ char *convert_hex(char *buf, char c, va_list a)
 {
 	char *str = NULL;
 	unsigned int vi = 0, u = 0, intlen = 0, hx = 0;
+	long int  li = 0;
 
 	switch (c)
 	{
@@ -26,9 +27,10 @@ char *convert_hex(char *buf, char c, va_list a)
 			break;
 
 		case 'u':
-			u = va_arg(a, unsigned int);
+			li = va_arg(a, long int);
+			u = li;
 			intlen = int_len_ui(u);
-			str = str_buff_ui(buf, u, intlen);
+			str = str_buff_ui(buf, u, intlen, li);
 			str = (str != NULL ? str : NULL);
 			break;
 

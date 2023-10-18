@@ -9,27 +9,26 @@
 char *convert_hex(char *buf, char c, va_list a)
 {
 	char *str = NULL;
-	int intlen = 0, hx = 0;
-	unsigned int vi = 0;
+	unsigned int vi = 0, u = 0, intlen = 0, hx = 0;
 
 	switch (c)
 	{
 		case 'x':
-			hx = va_arg(a, int);
+			hx = va_arg(a, unsigned int);
 			intlen = int_len(hx);
 			str = smHex_conv(buf, hx);
 			break;
 
 		case 'X':
-			hx = va_arg(a, int);
+			hx = va_arg(a, unsigned int);
 			intlen = int_len(hx);
 			str = hex_conv(buf, hx);
 			break;
 
 		case 'u':
-			hx = va_arg(a, int);
-			intlen = int_len(hx);
-			str = str_buff(buf, hx, intlen);
+			u = va_arg(a, unsigned int);
+			intlen = int_len_ui(u);
+			str = str_buff_ui(buf, u, intlen);
 			str = (str != NULL ? str : NULL);
 			break;
 

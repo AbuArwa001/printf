@@ -127,6 +127,20 @@ char *hex_conv(char *buf, unsigned int n);
  *  Return: coverted num
 */
 char *smHex_conv(char *buf, unsigned int n);
+/**
+ * str_buff_ui - convert int to str
+ * @buf: buffer to be updated
+ * @n: number to be converted
+ * @len: length of the string
+ * Return: returns the updated buffer
+*/
+char *str_buff_ui(char *buf, unsigned int n, int len);
+/**
+ * int_len_ui - finds the length of an in
+ * @n: integer to find length for
+ * Return: returns ength of int
+*/
+int int_len_ui(unsigned int n);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

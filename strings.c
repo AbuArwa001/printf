@@ -94,3 +94,25 @@ char *rev_str(char *buf, char *s)
 	*buf++ = (*(s + len));
 return (buf);
 }
+/**
+ * int_len_ui - finds the length of an in
+ * @n: integer to find length for
+ * Return: returns ength of int
+*/
+int int_len_ui(unsigned int n)
+{
+	int i = 0;
+
+	if (n == 0)
+	{
+		return (1);
+	}
+
+	for (i = 0; n != 0; i++)
+	{
+		n /= 10;
+	}
+
+	return (i);
+
+}

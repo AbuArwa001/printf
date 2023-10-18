@@ -120,3 +120,34 @@ char *smHex_conv(char *buf, unsigned int n)
 
 	return (buf);
 }
+/**
+ * str_buff_ui - convert int to str
+ * @buf: buffer to be updated
+ * @n: number to be converted
+ * @len: length of the string
+ * Return: returns the updated buffer
+*/
+char *str_buff_ui(char *buf, unsigned int n, int len)
+{
+	int i = 0, ble = 0, count = 0, no = n;
+
+	if (buf == NULL)
+	{
+		return (NULL);
+	}
+	ble = _strlen(buf);
+
+	count = (ble + len - 1);
+	i = ble;
+	for (; count >= i ; count--)
+	{
+		if (no < 10)
+			buf[count] = (no + '0');
+		else
+		{
+			buf[count] = (no % 10) + '0';
+			no /= 10;
+		}
+	}
+	return (buf);
+}

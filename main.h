@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <stdarg.h>
 /**
  * _strcat - it concantenates two strings
  * @dest: string to be appended to
@@ -105,6 +105,16 @@ char *rev_str(char *buf, char *s);
  * Return: returs encrypted string
  */
 char *rot13(char *buf, char *str);
+/**
+ * convert_hex - converts string to a specified specifier
+ *  @buf: buffer to be updated
+ *  @c: character to be checked
+ *  @a: list to travers and keep track of
+ * Return: returns updated buffer;
+*/
+char *convert_hex(char *buf, char c, va_list a);
+int octal_checck(char c);
+char *octal(char *buf, unsigned int n);
 int int_len(int n);
 char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);

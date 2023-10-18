@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include "main.h"
 
 /**
@@ -38,14 +37,17 @@ char *custom_convert(char *buf, char c, va_list a)
 			b = va_arg(a, int);
 			str = toBinary(buf, b);
 			break;
+
 		case 'R':
 			str = va_arg(a, char *);
 			str = rot13(buf, str);
 			break;
+
 		case 'r':
 			str = va_arg(a, char *);
 			str = rev_str(buf, (str != NULL) ? str : NULL);
 			break;
+
 		default:
 			break;
 	}
@@ -117,31 +119,32 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 	if (format[*i] == '%')
 	{
 		ch = format[*i + 1];
-
 		if (char_checck(ch))
 		{
 			convert(buffer, ch, args);
-
 			if (chk_str(buffer) == -1)
 				return (-1);
-
+			*i += 2;
+		}
+		else if (custom_checck(ch))
+		{
+			str = custom_convert(buffer, ch, args);
+			if (chk_str(str) == -1)
+				return (-1);
+			*i += 2;
+			}
+		else if (octal_checck(ch))
+		{
+			str = convert_hex(buffer, ch, args);
+			if (chk_str(str) == -1)
+				return (-1);
 			*i += 2;
 		}
 		else
-			if (custom_checck(ch))
-			{
-				str = custom_convert(buffer, ch, args);
-
-				if (chk_str(str) == -1)
-					return (-1);
-
-				*i += 2;
-			}
-			else
-			{
-				free(buffer);
-				return (-1);
-			}
+		{
+		free(buffer);
+		return (-1);
+		}
 	}
 	else
 	{
@@ -149,7 +152,6 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 		_strncat(buffer, &ch, 1);
 		*i += 1;
 	}
-
 	return (1);
 }
 /**
@@ -176,10 +178,10 @@ int _printf(const char *format, ...)
 		if (tracker != -1)
 			continue;
 		else
-			{
-				va_end(args);
-				return (-1);
-			}
+		{
+			va_end(args);
+			return (-1);
+		}
 	}
 
 	pr = print_buff(buffer, _strlen(buffer));

@@ -38,7 +38,7 @@ int chk_buf(char *buffer, const char *format)
 */
 int char_checck(char c)
 {
-	char *arr = "cdixXuos%%";
+	char *arr = "csdi%";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)
@@ -60,7 +60,7 @@ int char_checck(char c)
 */
 int custom_checck(char c)
 {
-	char *arr = "bxXuoSrR";
+	char *arr = "bSrR";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)
@@ -74,4 +74,23 @@ int custom_checck(char c)
 	return (0);
 
 
+}
+/**
+ * octal_checck - checks if chrarcter is available
+ * @c: character to be checked
+ * Return: returns 0 if not fount and 1 if foud
+*/
+int octal_checck(char c)
+{
+	char *arr = "xXuoS";
+	int i = 0;
+
+	for (i = 0; i < _strlen(arr); i++)
+	{
+		if (c == arr[i])
+		{
+			return (1);
+		}
+	}
+return (0);
 }

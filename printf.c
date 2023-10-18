@@ -115,7 +115,7 @@ char *convert(char *buf, char c, va_list a)
 */
 int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 {
-	char ch = c, *str = NULL;
+	char ch = c, cha = c, *str = NULL;
 
 	if (format[*i] == '%')
 	{
@@ -143,8 +143,8 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 		}
 		else
 		{
-		free(buffer);
-		return (-1);
+		_strncat(buffer, &cha, 1);
+		*i += 1;
 		}
 	}
 	else

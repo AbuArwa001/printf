@@ -82,7 +82,7 @@ int custom_checck(char c)
 */
 int octal_checck(char c)
 {
-	char *arr = "xXuoS";
+	char *arr = "xXuo";
 	int i = 0;
 
 	for (i = 0; i < _strlen(arr); i++)

@@ -110,11 +110,13 @@ char *convert(char *buf, char c, va_list a)
  *  @c: list to travers and keep track of
  *  @args: va list
  *  @i: character index
+ *  @B: buffer length to keep track
  * Return: returns updated buffer;
 */
-int fmt(const char *format, char *buffer, char c, va_list args, int *i)
+int fmt(const char *format, char *buffer, char c, va_list args, int *i, int *B)
 {
-	char ch = c, cha = c, *str = NULL;
+	char ch = c,  *str = NULL;
+	int chk = 0;
 
 	if (format[*i] == '%')
 	{
@@ -129,10 +131,9 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 		else if (custom_checck(ch))
 		{
 			str = custom_convert(buffer, ch, args);
-			if (chk_str(str) == -1)
-				return (-1);
 			*i += 2;
-			}
+			return ((chk_str(str) == -1) ? -1 : 1);
+		}
 		else if (octal_checck(ch))
 		{
 			str = convert_hex(buffer, ch, args);
@@ -140,17 +141,18 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 				return (-1);
 			*i += 2;
 		}
-		else
+		else if (ch != '\0')
 		{
-		_strncat(buffer, &cha, 1);
-		*i += 1;
+			chk = chk_buf_len(buffer, format, B, ch, i);
+			return ((chk == 1) ? 2 : 1);
 		}
+		else
+			return (-1);
 	}
 	else
 	{
-		ch = format[*i];
-		_strncat(buffer, &ch, 1);
-		*i += 1;
+		chk = chk_buf_len(buffer, format, B, ch, i);
+		return ((chk == 1) ? 2 : 1);
 	}
 	return (1);
 }
@@ -163,7 +165,8 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i)
 int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0, tracker = 0;
-	char *buffer = _calloc(1024, sizeof(char));
+	int BUFFSIZE = 1024, old = 1024;
+	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0';
 	va_list args;
 
 	if (chk_buf(buffer, format) == -1)
@@ -173,11 +176,22 @@ int _printf(const char *format, ...)
 
 	while (format && format[i])
 	{
-		tracker = fmt(format, buffer, format[i], args, &i);
+		tracker = fmt(format, buffer, format[i], args, &i, &BUFFSIZE);
 
-		if (tracker != -1)
+		if (tracker == 1)
+		{
 			continue;
-		else
+		}
+		else if (tracker == 2)
+		{
+			BUFFSIZE = (BUFFSIZE * 2);
+			buffer = _realloc(buffer, old, BUFFSIZE);
+			ch = format[i];
+			_strncat(buffer, &ch, 1);
+			i += 1;
+			continue;
+		}
+		else if (tracker == -1)
 		{
 			va_end(args);
 			return (-1);

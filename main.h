@@ -148,8 +148,17 @@ int int_len_ui(unsigned int n);
 *
 * Return: it returns an absolute value
 */
-
 int _abs(int in);
+/**
+ * chk_buf_len - chcks if buffer has reached its limit
+ * @buffer: buffer to be freed if str is null
+ * @format: format string to use
+ * @BUF:  buffer for updating
+ * @ch: character to be used to check and update buffer
+ * @i: index of current pointer to buffer
+ * Return: return 1 if not null and -1 if null
+*/
+int chk_buf_len(char *buffer, char const *format, int *BUF, char ch, int *i);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

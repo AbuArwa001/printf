@@ -125,8 +125,8 @@ int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B)
 	{
 		if (char_checck(ch))
 		{
-			str = convert(bf, ch, ag, B);
-			_memcpy(*s, str, _strlen(str));
+			*s = convert(bf, ch, ag, B);
+			/*_memcpy(*s, str, _strlen(str));*/
 			chk = chk_buf_le_str(bf, B, *s);
 			*i += (chk == -1) ? 1 : 2;
 			return ((chk == -1) ? 3 : 1);
@@ -168,8 +168,8 @@ int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0, tracker = 0;
 	int BUFFSIZE = 1024, old = 1024;
-	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0', *nb;
-	char *str = _calloc(BUFFSIZE, sizeof(char));
+	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0';
+	char *str = NULL;
 	va_list args;
 
 	if (chk_buf(buffer, format) == -1 ? 1 : 0)
@@ -190,10 +190,10 @@ int _printf(const char *format, ...)
 		{
 			BUFFSIZE = (BUFFSIZE * 2);
 			i += 1;
-			nb = _realloc(buffer, old, BUFFSIZE);
-			buffer = nb;
+			buffer = _realloc(buffer, old, BUFFSIZE);
 			if (chk_str(buffer) == -1 ? 1 : 0)
 				return (-1);
+			_strcat(buffer, str);
 		}
 		else if (tracker == -1)
 		{
@@ -203,7 +203,6 @@ int _printf(const char *format, ...)
 	}
 	pr = print_buff(buffer, _strlen(buffer));
 	va_end(args);
-	free(str);
 	free(buffer);
 	return (pr);
 }

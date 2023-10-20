@@ -72,12 +72,10 @@ char *convert(char *buf, char c, va_list a, int *B, int *cnt)
 	{
 		case 'c':
 			ch = va_arg(a, int);
-			if (ch == '\0')
-				*cnt += 1;
+			(ch == '\0') ? (_putchar('\0'), (*cnt += 1)) : 0;
 			buf[_strlen(buf)] = ch;
 			str = buf;
 			break;
-
 		case 'd':
 			va = va_arg(a, int);
 			intlen = int_len(va);

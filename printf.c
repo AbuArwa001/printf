@@ -71,7 +71,7 @@ char *convert(char *buf, char c, va_list a, int *B)
 	{
 		case 'c':
 			ch = va_arg(a, int);
-			buf[_strlen(buf)] = ch;
+			buf[_strlen(buf)] = ch + '0';
 			str = buf;
 			break;
 

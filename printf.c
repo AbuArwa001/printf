@@ -60,18 +60,20 @@ char *custom_convert(char *buf, char c, va_list a)
  *  @c: character to be checked
  *  @a: list to travers and keep track of
  *  @B: buffer length to keep track
+ *  @cnt: charcter count for nullbyte
  * Return: returns updated buffer;
 */
-char *convert(char *buf, char c, va_list a, int *B)
+char *convert(char *buf, char c, va_list a, int *B, int *cnt)
 {
-	char *str = NULL, ch = '\0', **ptr = NULL, cha = '\0';
+	char *str = NULL, ch = '\0', **ptr = NULL;
 	int intlen = 0, va = 0;
 
 	switch (c)
 	{
 		case 'c':
 			ch = va_arg(a, int);
-			ch = (ch == cha) ? cha + '0' : ch;
+			if (ch == '\0')
+				*cnt += 1;
 			buf[_strlen(buf)] = ch;
 			str = buf;
 			break;
@@ -81,7 +83,6 @@ char *convert(char *buf, char c, va_list a, int *B)
 			intlen = int_len(va);
 			str = str_buff(buf, va, intlen);
 			break;
-
 		case 'i':
 			va = va_arg(a, int);
 			intlen = int_len(va);
@@ -112,10 +113,11 @@ char *convert(char *buf, char c, va_list a, int *B)
  *  @ag: va list
  *  @i: character index
  *  @B: buffer length to keep track
- *	@s: use to track bufer;
+ *	@s: use to track bufer
+ *  @c: character count for nullbyte
  * Return: returns updated buffer;
 */
-int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B)
+int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B, int *c)
 {
 	char ch = '\0',  *str = NULL;
 	int chk = 0;
@@ -125,7 +127,7 @@ int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B)
 	{
 		if (char_checck(ch))
 		{
-			*s = convert(bf, ch, ag, B);
+			*s = convert(bf, ch, ag, B, c);
 			/*_memcpy(*s, str, _strlen(str));*/
 			chk = chk_buf_le_str(bf, B, *s);
 			*i += (chk == -1) ? 1 : 2;
@@ -166,7 +168,7 @@ int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B)
 */
 int _printf(const char *format, ...)
 {
-	int pr = 0, i = 0, tracker = 0;
+	int pr = 0, i = 0, tracker = 0, cnt = 0;
 	int BUFFSIZE = 1024, old = 1024;
 	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0';
 	char *str = NULL;
@@ -177,7 +179,7 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	while (format && format[i])
 	{
-		tracker = fmt(format, buffer, &str, args, &i, &BUFFSIZE);
+		tracker = fmt(format, buffer, &str, args, &i, &BUFFSIZE, &cnt);
 		if (tracker == 2)
 		{
 			BUFFSIZE = (BUFFSIZE * 2);
@@ -201,7 +203,7 @@ int _printf(const char *format, ...)
 			return (-1);
 		}
 	}
-	pr = print_buff(buffer, _strlen(buffer));
+	pr = print_buff(buffer, _strlen(buffer)) + cnt;
 	va_end(args);
 	free(buffer);
 	return (pr);

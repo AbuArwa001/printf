@@ -167,6 +167,14 @@ int chk_buf_len(char *buffer, char const *format, int *BUF, char *ch, int *i);
  * Return: return 1 if not null and -1 if null
 */
 int chk_buf_le_str(char *buffer, int *BUF, char *str);
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

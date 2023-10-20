@@ -19,7 +19,7 @@ char *_strcat(char *dest, char *src);
  * @s: the string to be examined
  * Return: returns the length in number
  */
-int _strlen(char *s);
+int _strlen(const char *s);
 /**
  * _strncat - conctaenates a string to n characters
  * @dest: the destination of copiied characters
@@ -94,10 +94,10 @@ int custom_checck(char c);
  * rev_str- prints string in reverse
  * @buf: wherr the str is stored
  * @s: string to be reversed
+ * @len: length of the string
  * Return: returns the rversed string for buffe
  */
-
-char *rev_str(char *buf, char *s);
+char *rev_str(char *buf, char *s, int len);
 /**
  * rot13 - cyphers string with rot 13 cyphers
  * @str: string to be encrypted
@@ -158,7 +158,15 @@ int _abs(int in);
  * @i: index of current pointer to buffer
  * Return: return 1 if not null and -1 if null
 */
-int chk_buf_len(char *buffer, char const *format, int *BUF, char ch, int *i);
+int chk_buf_len(char *buffer, char const *format, int *BUF, char *ch, int *i);
+/**
+ * chk_buf_len - chcks if buffer has reached its limit
+ * @buffer: buffer to be freed if str is null
+ * @BUF:  buffer for updating
+ * @str: str to be used to check and update buffer
+ * Return: return 1 if not null and -1 if null
+*/
+int chk_buf_le_str(char *buffer, int *BUF, char *str);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);
@@ -166,6 +174,6 @@ char *str_buff(char *buf, int no, int len);
 char *c_tostr(char *buf, char *c);
 char *str_buff(char *buf, int no, int len);
 int _printf(const char *format, ...);
-char *add_str(char *buf, char *str);
+char *add_str(char *buf, char *str, int *BUFSIZE);
 char *toBinary(char *buf, int b);
 #endif

@@ -8,17 +8,56 @@
  * @i: index of current pointer to buffer
  * Return: return 1 if not null and -1 if null
 */
-int chk_buf_len(char *buffer, char const *format, int *BUF, char ch, int *i)
+int chk_buf_len(char *buffer, char const *format, int *BUF, char *ch, int *i)
 {
-	int len = _strlen(buffer);
+	int len = 0;
+
+	if (buffer == NULL)
+	{
+		len = 0;
+	}
+	else
+	{
+		len =  _strlen(buffer);
+	}
 
 	if (len >= *BUF)
 	{
 		return (1);
 	}
 
-	ch = format[*i];
-	_strncat(buffer, &ch, 1);
+	*ch = format[*i];
+	_strncat(buffer, ch, 1);
 	*i += 1;
 	return (0);
+}
+/**
+ * chk_buf_le_str - chcks if buffer has reached its limit
+ * @buffer: buffer to be freed if str is null
+ * @BUF:  buffer for updating
+ * @str: string to be used to check and update buffer
+ *
+ * Return: return 1 if not null and -1 if null
+*/
+int chk_buf_le_str(char *buffer, int *BUF, char *str)
+{
+	int len1 = 0;
+	int lenbuf = 0;
+
+	if (str == NULL)
+	{
+		len1 = 0;
+	}
+	else
+	{
+		len1 = _strlen(str);
+		lenbuf = _strlen(buffer);
+	}
+
+	if ((len1 + lenbuf - 1)  >= *BUF)
+	{
+		return (-1);
+	}
+
+	return (1);
 }

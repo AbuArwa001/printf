@@ -28,8 +28,8 @@ int print_buff(char *buff, int len)
 */
 char *custom_convert(char *buf, char c, va_list a)
 {
-	char *str = NULL;
-	int b = 0;
+	char *str = NULL, *est = NULL;
+	int b = 0, str_len = 0;
 
 	switch (c)
 	{
@@ -44,8 +44,8 @@ char *custom_convert(char *buf, char c, va_list a)
 			break;
 
 		case 'r':
-			str = va_arg(a, char *);
-			str = rev_str(buf, (str != NULL) ? str : NULL);
+			est = va_arg(a, char *);
+			str = rev_str(buf, (est != NULL) ? est : NULL, str_len);
 			break;
 
 		default:
@@ -59,9 +59,10 @@ char *custom_convert(char *buf, char c, va_list a)
  *  @buf: buffer to be updated
  *  @c: character to be checked
  *  @a: list to travers and keep track of
+ *  @B: buffer length to keep track
  * Return: returns updated buffer;
 */
-char *convert(char *buf, char c, va_list a)
+char *convert(char *buf, char c, va_list a, int *B)
 {
 	char *str = NULL, ch = '\0', **ptr = NULL;
 	int intlen = 0, va = 0;
@@ -92,11 +93,11 @@ char *convert(char *buf, char c, va_list a)
 			break;
 		case 's':
 			str = va_arg(a, char *);
-			str = add_str(buf, (str != NULL) ? str : NULL);
+			str = add_str(buf, (str != NULL) ? str : NULL, B);
 			break;
 		case 'p':
 			ptr = va_arg(a, char **);
-			str = add_str(buf, (*ptr != NULL) ? *ptr : NULL);
+			str = add_str(buf, (*ptr != NULL) ? *ptr : NULL, B);
 			break;
 		default:
 			break;
@@ -105,45 +106,45 @@ char *convert(char *buf, char c, va_list a)
 }
 /**
  * fmt - validifies format string to a specified specifier
- *  @format: buffer to be updated
- *  @buffer: character to be checked
- *  @c: list to travers and keep track of
- *  @args: va list
+ *  @fm: buffer to be updated
+ *  @bf: character to be checked
+ *  @ag: va list
  *  @i: character index
  *  @B: buffer length to keep track
+ *	@s: use to track bufer;
  * Return: returns updated buffer;
 */
-int fmt(const char *format, char *buffer, char c, va_list args, int *i, int *B)
+int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B)
 {
-	char ch = c,  *str = NULL;
+	char ch = '\0',  *str = NULL;
 	int chk = 0;
 
-	if (format[*i] == '%')
+	ch = fm[*i + 1];
+	if (fm[*i] == '%')
 	{
-		ch = format[*i + 1];
 		if (char_checck(ch))
 		{
-			convert(buffer, ch, args);
-			if (chk_str(buffer) == -1)
-				return (-1);
-			*i += 2;
+			str = convert(bf, ch, ag, B);
+			_memcpy(*s, str, _strlen(str));
+			chk = chk_buf_le_str(bf, B, *s);
+			*i += (chk == -1) ? 1 : 2;
+			return ((chk == -1) ? 3 : 1);
 		}
 		else if (custom_checck(ch))
 		{
-			str = custom_convert(buffer, ch, args);
+			str = custom_convert(bf, ch, ag);
 			*i += 2;
 			return ((chk_str(str) == -1) ? -1 : 1);
 		}
 		else if (octal_checck(ch))
 		{
-			str = convert_hex(buffer, ch, args);
-			if (chk_str(str) == -1)
-				return (-1);
+			str = convert_hex(bf, ch, ag);
 			*i += 2;
+			return ((chk_str(str) == -1) ? -1 : 1);
 		}
 		else if (ch != '\0')
 		{
-			chk = chk_buf_len(buffer, format, B, ch, i);
+			chk = chk_buf_len(bf, fm, B, &ch, i);
 			return ((chk == 1) ? 2 : 1);
 		}
 		else
@@ -151,7 +152,7 @@ int fmt(const char *format, char *buffer, char c, va_list args, int *i, int *B)
 	}
 	else
 	{
-		chk = chk_buf_len(buffer, format, B, ch, i);
+		chk = chk_buf_len(bf, fm, B, &ch, i);
 		return ((chk == 1) ? 2 : 1);
 	}
 	return (1);
@@ -166,30 +167,32 @@ int _printf(const char *format, ...)
 {
 	int pr = 0, i = 0, tracker = 0;
 	int BUFFSIZE = 1024, old = 1024;
-	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0';
+	char *buffer = _calloc(BUFFSIZE, sizeof(char)), ch = '\0', *nb;
+	char *str = _calloc(BUFFSIZE, sizeof(char));
 	va_list args;
 
-	if (chk_buf(buffer, format) == -1)
+	if (chk_buf(buffer, format) == -1 ? 1 : 0)
 		return (-1);
-
 	va_start(args, format);
-
 	while (format && format[i])
 	{
-		tracker = fmt(format, buffer, format[i], args, &i, &BUFFSIZE);
-
-		if (tracker == 1)
-		{
-			continue;
-		}
-		else if (tracker == 2)
+		tracker = fmt(format, buffer, &str, args, &i, &BUFFSIZE);
+		if (tracker == 2)
 		{
 			BUFFSIZE = (BUFFSIZE * 2);
 			buffer = _realloc(buffer, old, BUFFSIZE);
 			ch = format[i];
 			_strncat(buffer, &ch, 1);
 			i += 1;
-			continue;
+		}
+		else if (tracker == 3)
+		{
+			BUFFSIZE = (BUFFSIZE * 2);
+			i += 1;
+			nb = _realloc(buffer, old, BUFFSIZE);
+			buffer = nb;
+			if (chk_str(buffer) == -1 ? 1 : 0)
+				return (-1);
 		}
 		else if (tracker == -1)
 		{
@@ -197,9 +200,9 @@ int _printf(const char *format, ...)
 			return (-1);
 		}
 	}
-
 	pr = print_buff(buffer, _strlen(buffer));
 	va_end(args);
+	free(str);
 	free(buffer);
 	return (pr);
 }

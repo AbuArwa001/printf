@@ -21,15 +21,21 @@ char *c_tostr(char *buf, char *c)
  * add_str - adds string to buffer
  *  @buf: buffer to be updated
  *  @str: string to be added to buffer
- *
+ *	@BUFSIZE: size of the BUFFER
  * Return: returns a string;
 */
-char *add_str(char *buf, char *str)
+char *add_str(char *buf, char *str, int *BUFSIZE)
 {
+
 	if (str == NULL)
 	{
+		str = "";
 		_strcat(buf, "(null)");
-		return (NULL);
+		return (str);
+	}
+	if ((_strlen(str) + _strlen(buf) - 1)  >= *BUFSIZE)
+	{
+		return (str);
 	}
 
 	return (_strcat(buf, str));

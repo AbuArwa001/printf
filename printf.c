@@ -64,14 +64,15 @@ char *custom_convert(char *buf, char c, va_list a)
 */
 char *convert(char *buf, char c, va_list a, int *B)
 {
-	char *str = NULL, ch = '\0', **ptr = NULL;
+	char *str = NULL, ch = '\0', **ptr = NULL, cha = '\0';
 	int intlen = 0, va = 0;
 
 	switch (c)
 	{
 		case 'c':
 			ch = va_arg(a, int);
-			buf[_strlen(buf)] = ch + '0';
+			ch = (ch == cha) ? cha + '0' : ch;
+			buf[_strlen(buf)] = ch;
 			str = buf;
 			break;
 

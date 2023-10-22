@@ -183,6 +183,13 @@ int _putchar(char c);
  * Return: returns a pointer to memory f the new allocated memory
  */
 void *__realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+/**
+ * bin_len - finds the lenth of binry representation
+ * @b: number to be converted
+ *
+ * Return: returns the length of the binary
+*/
+int bin_len(int b);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

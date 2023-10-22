@@ -12,7 +12,7 @@ char *octal(char *buf, unsigned int n)
 
 	if (n == 0)
 	{
-		buf[_strlen(buf)] = '\0';
+		buf[_strlen(buf)] = 0 + '0';
 	}
 
 	while (num > 0)
@@ -45,7 +45,7 @@ char *hex_conv(char *buf, unsigned int n)
 
 	if (n == 0)
 	{
-		buf[_strlen(buf)] = 0;
+		buf[_strlen(buf)] = 0 + '0';
 	}
 
 	buf[_strlen(buf) + i] = '\0';
@@ -89,7 +89,7 @@ char *smHex_conv(char *buf, unsigned int n)
 
 	if (n == 0)
 	{
-		buf[_strlen(buf)] = 0;
+		buf[_strlen(buf)] = 0 + '0';
 	}
 
 	buf[_strlen(buf) + i] = '\0';

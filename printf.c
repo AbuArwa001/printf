@@ -47,8 +47,8 @@ char *custom_convert(char **buf, char c, va_list a, int *B)
 			break;
 		case 'R':
 			str = va_arg(a, char *);
-			est = _calloc(_strlen(str), sizeof(char));
-			_memcpy(est, str, _strlen(str) - 1);
+			est = _calloc(_strlen(str) + 1, sizeof(char));
+			_memcpy(est, str, _strlen(str));
 			str = rot13(est);
 			_memcpy((*buf + _strlen(*buf)), str, _strlen(str));
 			free(est);

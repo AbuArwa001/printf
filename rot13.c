@@ -5,10 +5,9 @@ void initCaps(char rotMap[256]);
 /**
  * rot13 - cyphers string with rot 13 cyphers
  * @str: string to be encrypted
- * @buf: buffer to save rot
  * Return: returs encrypted string
  */
-char *rot13(char *buf, char *str)
+char *rot13(char *str)
 {
 	int i = 0;
 	char rotMap[256] = {0};
@@ -20,32 +19,28 @@ char *rot13(char *buf, char *str)
 
 	if (str == NULL)
 	{
-		free(buf);
-		buf = NULL;
-
 		return (NULL);
 	}
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90))
 		{
-			buf[_strlen(buf)] = str[i];
+			str[i] = str[i];
 		}
 		while (rotMap[(unsigned char)str[i]] || (lowRot[(unsigned char)str[i]]))
 		{
 			if (str[i] >= 65 && str[i] <= 90)
 			{
-				buf[_strlen(buf)] = rotMap[(unsigned char)str[i]];
+				str[i] = rotMap[(unsigned char)str[i]];
 				break;
 			}
-			buf[_strlen(buf)] = lowRot[(unsigned char)str[i]];
+			str[i] = lowRot[(unsigned char)str[i]];
 			break;
 		}
 
 		i++;
 	}
-
-	return (buf);
+	return (str);
 
 }
 /**

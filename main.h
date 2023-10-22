@@ -101,10 +101,9 @@ char *rev_str(char *buf, char *s);
 /**
  * rot13 - cyphers string with rot 13 cyphers
  * @str: string to be encrypted
- * @buf: buffer to save rot
  * Return: returs encrypted string
  */
-char *rot13(char *buf, char *str);
+char *rot13(char *str);
 /**
  * convert_hex - converts string to a specified specifier
  *  @buf: buffer to be updated

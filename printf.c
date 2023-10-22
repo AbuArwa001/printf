@@ -47,7 +47,11 @@ char *custom_convert(char **buf, char c, va_list a, int *B)
 			break;
 		case 'R':
 			str = va_arg(a, char *);
-			str = rot13(*buf, str);
+			est = _calloc(_strlen(str), sizeof(char));
+			_memcpy(est, str, _strlen(str) - 1);
+			str = rot13(est);
+			_memcpy((*buf + _strlen(*buf)), str, _strlen(str));
+			free(est);
 			break;
 
 		case 'r':

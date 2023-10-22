@@ -52,6 +52,7 @@ char *custom_convert(char **buf, char c, va_list a, int *B)
 
 		case 'r':
 			est = va_arg(a, char *);
+			str_len = _strlen(*buf);
 			str = rev_str(*buf, (est != NULL) ? est : NULL, str_len);
 			break;
 

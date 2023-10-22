@@ -82,6 +82,9 @@ int int_len(int n)
 
 char *rev_str(char *buf, char *s, int len)
 {
+	int i = 0, strlen = 0;
+
+	strlen = _strlen(s) - 1;
 	if (s == NULL)
 	{
 		return (NULL);
@@ -91,12 +94,12 @@ char *rev_str(char *buf, char *s, int len)
 		_strcat(buf, "%r");
 		return (buf);
 	}
-	while (len != 0)
+	while (strlen >= 0)
 	{
-		*buf++ = *(s + len);
-		len--;
+		buf[_strlen(buf)] = *(s + strlen);
+		strlen--;
+		i++;
 	}
-	*buf++ = (*(s + len));
 return (buf);
 }
 /**

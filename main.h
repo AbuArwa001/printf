@@ -166,7 +166,7 @@ int chk_buf_len(char *buffer, char const *format, int *BUF, char *ch, int *i);
  * @str: str to be used to check and update buffer
  * Return: return 1 if not null and -1 if null
 */
-int chk_buf_le_str(char *buffer, int *BUF, char *str);
+int chk_buf_le_str(char **buffer, int *BUF, char **str);
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
@@ -175,6 +175,14 @@ int chk_buf_le_str(char *buffer, int *BUF, char *str);
  * On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c);
+/**
+ * __realloc - reallocate a memory block using malloc
+ * @ptr: pointer of memory to be reallocated
+ * @old_size: ptrs old memory size
+ * @new_size: ptrs new size
+ * Return: returns a pointer to memory f the new allocated memory
+ */
+void *__realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);

@@ -8,9 +8,8 @@
  */
 int _strlen(const char *s)
 {
-	unsigned int l;
+	unsigned int l = 0;
 
-	l = 0;
 	while (s && s[l])
 		++l;
 	return (l);

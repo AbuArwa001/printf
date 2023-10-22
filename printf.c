@@ -63,41 +63,42 @@ char *custom_convert(char *buf, char c, va_list a)
  *  @cnt: charcter count for nullbyte
  * Return: returns updated buffer;
 */
-char *convert(char *buf, char c, va_list a, int *B, int *cnt)
+char *convert(char **buf, char c, va_list a, int *B, int *cnt)
 {
 	char *str = NULL, ch = '\0', **ptr = NULL;
-	int intlen = 0, va = 0;
+	int ilen = 0, va = 0, ble = _strlen(*buf), old = *B;
 
 	switch (c)
 	{
 		case 'c':
 			ch = va_arg(a, int);
 			(ch == '\0') ? (_putchar('\0'), (*cnt += 1)) : 0;
-			buf[_strlen(buf)] = ch;
-			str = buf;
+			*(*buf + ble) = ch;
+			str = *buf;
 			break;
 		case 'd':
 			va = va_arg(a, int);
-			intlen = int_len(va);
-			str = str_buff(buf, va, intlen);
+			ilen = int_len(va);
+			(ilen + ble >= *B) ? (*B = (*B * 2)), (*buf = _realloc(*buf, old, *B)) : 0;
+			str = str_buff(*buf, va, ilen);
 			break;
 		case 'i':
 			va = va_arg(a, int);
-			intlen = int_len(va);
-			str = str_buff(buf, va, intlen);
+			ilen = int_len(va);
+			str = str_buff(*buf, va, ilen);
 			str = (str != NULL ? str : NULL);
 			break;
 		case '%':
-			buf[_strlen(buf)] = c;
-			str = buf;
+			*buf[_strlen(*buf)] = c;
+			str = *buf;
 			break;
 		case 's':
 			str = va_arg(a, char *);
-			str = add_str(buf, (str != NULL) ? str : NULL, B);
+			str = add_str(*buf, (str != NULL) ? str : NULL, B);
 			break;
 		case 'p':
 			ptr = va_arg(a, char **);
-			str = add_str(buf, (*ptr != NULL) ? *ptr : NULL, B);
+			str = add_str(*buf, (*ptr != NULL) ? *ptr : NULL, B);
 			break;
 		default:
 			break;
@@ -108,44 +109,43 @@ char *convert(char *buf, char c, va_list a, int *B, int *cnt)
  * fmt - validifies format string to a specified specifier
  *  @fm: buffer to be updated
  *  @bf: character to be checked
- *  @ag: va list
+ *  @a: va list
  *  @i: character index
  *  @B: buffer length to keep track
  *	@s: use to track bufer
  *  @c: character count for nullbyte
  * Return: returns updated buffer;
 */
-int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B, int *c)
+int fmt(const char *fm, char **bf, char **s, va_list a, int *i, int *B, int *c)
 {
 	char ch = '\0',  *str = NULL;
 	int chk = 0;
 
-	ch = fm[*i + 1];
+	ch = (fm[*i] == '%') ?  fm[*i + 1] : fm[*i];
 	if (fm[*i] == '%')
 	{
 		if (char_checck(ch))
 		{
-			*s = convert(bf, ch, ag, B, c);
-			/*_memcpy(*s, str, _strlen(str));*/
-			chk = chk_buf_le_str(bf, B, *s);
+			*s = convert(bf, ch, a, B, c);
+			chk = chk_buf_le_str(bf, B, s);
 			*i += (chk == -1) ? 1 : 2;
 			return ((chk == -1) ? 3 : 1);
 		}
 		else if (custom_checck(ch))
 		{
-			str = custom_convert(bf, ch, ag);
+			str = custom_convert(*bf, ch, a);
 			*i += 2;
 			return ((chk_str(str) == -1) ? -1 : 1);
 		}
 		else if (octal_checck(ch))
 		{
-			str = convert_hex(bf, ch, ag);
+			str = convert_hex(*bf, ch, a);
 			*i += 2;
 			return ((chk_str(str) == -1) ? -1 : 1);
 		}
 		else if (ch != '\0')
 		{
-			chk = chk_buf_len(bf, fm, B, &ch, i);
+			chk = chk_buf_len(*bf, fm, B, &ch, i);
 			return ((chk == 1) ? 2 : 1);
 		}
 		else
@@ -153,7 +153,7 @@ int fmt(const char *fm, char *bf, char **s, va_list ag, int *i, int *B, int *c)
 	}
 	else
 	{
-		chk = chk_buf_len(bf, fm, B, &ch, i);
+		chk = chk_buf_len(*bf, fm, B, &ch, i);
 		return ((chk == 1) ? 2 : 1);
 	}
 	return (1);
@@ -174,10 +174,11 @@ int _printf(const char *format, ...)
 
 	if (chk_buf(buffer, format) == -1 ? 1 : 0)
 		return (-1);
+
 	va_start(args, format);
 	while (format && format[i])
 	{
-		tracker = fmt(format, buffer, &str, args, &i, &BUFFSIZE, &cnt);
+		tracker = fmt(format, &buffer, &str, args, &i, &BUFFSIZE, &cnt);
 		if (tracker == 2)
 		{
 			BUFFSIZE = (BUFFSIZE * 2);

@@ -29,10 +29,16 @@ int _isdigit(int c)
  *  Return: returns 1 if upper
  *          returns 0 if otherwise
  */
-char *toBinary(char *buf, int b)
+char *toBinary(char *buf, unsigned int b)
 {
-	int i = 0, len = _strlen(buf), b2 = b;
+	int i = 0, len = _strlen(buf);
+	unsigned int b2 = b;
 
+	if (b2 == 0)
+	{
+		buf[len] = 0 + '0';
+		return (buf);
+	}
 
 	while (b > 0)
 	{

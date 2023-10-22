@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include <limits.h>
 /**
  * _strcat - it concantenates two strings
  * @dest: string to be appended to
@@ -189,7 +190,15 @@ void *__realloc(void *ptr, unsigned int old_size, unsigned int new_size);
  *
  * Return: returns the length of the binary
 */
-int bin_len(int b);
+int bin_len(unsigned long int b);
+/**
+ * _pow_recursion - Prints a power of a number
+ * @x: number to be use
+ * @y: power to be used
+ * Return: returns the x raised to y
+ *         returns -1 if y is less than 0
+ */
+int _pow_recursion(int x, int y);
 int octal_checck(char c);
 char *octal(char *buf, unsigned int n);
 int int_len(int n);
@@ -198,5 +207,5 @@ char *c_tostr(char *buf, char *c);
 char *str_buff(char *buf, int no, int len);
 int _printf(const char *format, ...);
 char *add_str(char *buf, char *str, int *BUFSIZE);
-char *toBinary(char *buf, int b);
+char *toBinary(char *buf, unsigned int b);
 #endif

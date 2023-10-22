@@ -31,16 +31,20 @@ char *custom_convert(char **buf, char c, va_list a, int *B)
 {
 	char *str = NULL, *est = NULL;
 	int b = 0, str_len = 0, ilen = 0, ble = _strlen(*buf), old = *B;
+	unsigned  int bi = 0;
 
 	switch (c)
 	{
 		case 'b':
 			b = va_arg(a, int);
-			ilen = bin_len(b);
+			if (b < 0)
+				bi = _pow_recursion(2, 32) + b;
+			else
+				bi = b;
+			ilen = bin_len(bi);
 			(ilen + ble >= *B) ? (*B = (*B * 2)), (*buf = _realloc(*buf, old, *B)) : 0;
-			str = toBinary(*buf, b);
+			str = toBinary(*buf, bi);
 			break;
-
 		case 'R':
 			str = va_arg(a, char *);
 			str = rot13(*buf, str);

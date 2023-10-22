@@ -5,9 +5,14 @@
  *
  * Return: returns the length of the binary
 */
-int bin_len(int b)
+int bin_len(unsigned long int  b)
 {
 	int i = 0;
+
+	if (b == 0)
+	{
+		return (1);
+	}
 
 	while (b > 0)
 	{

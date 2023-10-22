@@ -24,28 +24,31 @@ int print_buff(char *buff, int len)
  *  @buf: buffer to be updated
  *  @c: character to be checked
  *  @a: list to travers and keep track of
+ *  @B: size of BUFFER currently
  * Return: returns updated buffer;
 */
-char *custom_convert(char *buf, char c, va_list a)
+char *custom_convert(char **buf, char c, va_list a, int *B)
 {
 	char *str = NULL, *est = NULL;
-	int b = 0, str_len = 0;
+	int b = 0, str_len = 0, ilen = 0, ble = _strlen(*buf), old = *B;
 
 	switch (c)
 	{
 		case 'b':
 			b = va_arg(a, int);
-			str = toBinary(buf, b);
+			ilen = bin_len(b);
+			(ilen + ble >= *B) ? (*B = (*B * 2)), (*buf = _realloc(*buf, old, *B)) : 0;
+			str = toBinary(*buf, b);
 			break;
 
 		case 'R':
 			str = va_arg(a, char *);
-			str = rot13(buf, str);
+			str = rot13(*buf, str);
 			break;
 
 		case 'r':
 			est = va_arg(a, char *);
-			str = rev_str(buf, (est != NULL) ? est : NULL, str_len);
+			str = rev_str(*buf, (est != NULL) ? est : NULL, str_len);
 			break;
 
 		default:
@@ -133,7 +136,7 @@ int fmt(const char *fm, char **bf, char **s, va_list a, int *i, int *B, int *c)
 		}
 		else if (custom_checck(ch))
 		{
-			str = custom_convert(*bf, ch, a);
+			str = custom_convert(bf, ch, a, B);
 			*i += 2;
 			return ((chk_str(str) == -1) ? -1 : 1);
 		}

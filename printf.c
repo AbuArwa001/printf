@@ -89,7 +89,7 @@ char *convert(char **buf, char c, va_list a, int *B, int *cnt)
 			str = (str != NULL ? str : NULL);
 			break;
 		case '%':
-			*buf[_strlen(*buf)] = c;
+			*(*buf + ble) = c;
 			str = *buf;
 			break;
 		case 's':

@@ -95,10 +95,9 @@ int custom_checck(char c);
  * rev_str- prints string in reverse
  * @buf: wherr the str is stored
  * @s: string to be reversed
- * @len: length of the string
  * Return: returns the rversed string for buffe
  */
-char *rev_str(char *buf, char *s, int len);
+char *rev_str(char *buf, char *s);
 /**
  * rot13 - cyphers string with rot 13 cyphers
  * @str: string to be encrypted

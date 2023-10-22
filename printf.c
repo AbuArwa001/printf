@@ -30,7 +30,7 @@ int print_buff(char *buff, int len)
 char *custom_convert(char **buf, char c, va_list a, int *B)
 {
 	char *str = NULL, *est = NULL;
-	int b = 0, str_len = 0, ilen = 0, ble = _strlen(*buf), old = *B;
+	int b = 0, ilen = 0, ble = _strlen(*buf), old = *B;
 	unsigned  int bi = 0;
 
 	switch (c)
@@ -52,8 +52,7 @@ char *custom_convert(char **buf, char c, va_list a, int *B)
 
 		case 'r':
 			est = va_arg(a, char *);
-			str_len = _strlen(est);
-			str = rev_str(*buf, (est != NULL) ? est : NULL, str_len);
+			str = rev_str(*buf, (est != NULL) ? est : NULL);
 			break;
 
 		default:

@@ -76,20 +76,16 @@ int int_len(int n)
  * rev_str - prints string in reverse
  * @buf: wherr the str is stored
  * @s: string to be reversed
- * @len: length of the str
  * Return: returns the rversed string for buffer
  */
 
-char *rev_str(char *buf, char *s, int len)
+char *rev_str(char *buf, char *s)
 {
 	int i = 0, strlen = 0;
 
 	strlen = _strlen(s) - 1;
+
 	if (s == NULL)
-	{
-		return (NULL);
-	}
-	if (len == 0)
 	{
 		_strcat(buf, "%r");
 		return (buf);
